@@ -1,0 +1,123 @@
+---
+sidebar: sidebar 
+permalink: trident-docker/prereqs-docker.html 
+keywords: deploy, astra trident, docker, trident for docker, nfs, iscsi, protcol, nfs protocol, iscsi protocol, configure host, host config 
+summary: Trident を導入するには、必要なプロトコルをホストにインストールして設定しておく必要があります。 
+---
+= 導入の前提条件
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Trident を導入するには、必要なプロトコルをホストにインストールして設定しておく必要があります。
+
+
+
+== 要件を確認します
+
+* の導入がすべてを満たしていることを確認します link:../trident-get-started/requirements.html["要件"]。
+* サポートされているバージョンの Docker がインストールされていることを確認します。Docker のバージョンが最新でない場合は、 https://docs.docker.com/engine/install/["インストールまたは更新します"^]。
++
+[listing]
+----
+docker --version
+----
+* プロトコルの前提条件がホストにインストールされ、設定されていることを確認します。
+
+
+[cols="3*"]
+|===
+| プロトコル | オペレーティングシステム | コマンド 
+
+
+| NFS  a| 
+RHEL 8以降
+ a| 
+`sudo yum install -y nfs-utils`
+
+
+
+| NFS  a| 
+Ubuntu
+ a| 
+`sudo apt-get install -y nfs-common`
+
+
+
+| iSCSI  a| 
+RHEL 8以降
+ a| 
+. 次のシステムパッケージをインストールします。
++
+`sudo yum install -y lsscsi iscsi-initiator-utils sg3_utils device-mapper-multipath`
+
+. iscsi-initiator-utils のバージョンが 6.2.0.874-2.el7 以降であることを確認します。
++
+`rpm -q iscsi-initiator-utils`
+
+. スキャンを手動に設定：
++
+`sudo sed -i 's/^\(node.session.scan\).*/\1 = manual/' /etc/iscsi/iscsid.conf`
+
+. マルチパスを有効化：
++
+`sudo mpathconf --enable --with_multipathd y --find_multipaths n`
+
++
+
+NOTE: 確認します `etc/multipath.conf` が含まれます `find_multipaths no` の下 `defaults`。
+
+. を確認します `iscsid` および `multipathd` 実行中：
++
+`sudo systemctl enable --now iscsid multipathd`
+
+. を有効にして開始します `iscsi`：
++
+`sudo systemctl enable --now iscsi`
+
+
+
+
+
+| iSCSI  a| 
+Ubuntu
+ a| 
+. 次のシステムパッケージをインストールします。
++
+`sudo apt-get install -y open-iscsi lsscsi sg3-utils multipath-tools scsitools`
+
+. open-iscsi バージョンが 2.0.874-5ubuntu2.10 以降（ bionic の場合）または 2.0.874-7.1ubuntu6.1 以降（ Focal の場合）であることを確認します。
++
+`dpkg -l open-iscsi`
+
+. スキャンを手動に設定：
++
+`sudo sed -i 's/^\(node.session.scan\).*/\1 = manual/' /etc/iscsi/iscsid.conf`
+
+. マルチパスを有効化：
++
+`sudo tee /etc/multipath.conf <<-'EOF'
+defaults {
+    user_friendly_names yes
+    find_multipaths no
+}
+EOF
+sudo systemctl enable --now multipath-tools.service
+sudo service multipath-tools restart`
+
++
+
+NOTE: 確認します `etc/multipath.conf` が含まれます `find_multipaths no` の下 `defaults`。
+
+. を確認します `open-iscsi` および `multipath-tools` 有効になっていて実行中：
++
+`sudo systemctl status multipath-tools`
+`sudo systemctl enable --now open-iscsi.service`
+`sudo systemctl status open-iscsi`
+
+
+
+|===

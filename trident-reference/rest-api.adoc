@@ -1,0 +1,58 @@
+---
+sidebar: sidebar 
+permalink: trident-reference/rest-api.html 
+keywords: rest api, get, post, json, object, backends 
+summary: Trident の REST API を使用する場合は、 REST エンドポイントを直接使用できます。 
+---
+= Astra Trident REST API
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+間 link:tridentctl.html["tridentctl コマンドとオプション"] Trident REST APIを使用するには、RESTエンドポイントを直接使用する方法が最も簡単です。
+
+
+
+== REST APIを使用する状況
+
+REST APIは、Kubernetes以外の環境でAstra Tridentをスタンドアロンバイナリとして使用する高度なインストールに役立ちます。
+
+セキュリティ強化のため、Astra Tridentをぜひご利用ください `REST API` ポッド内で実行されている場合は、デフォルトでlocalhostに制限されます。この動作を変更するには、Astra Tridentを設定する必要があります `-address` 引数をポッド構成で指定します。
+
+
+
+== REST APIを使用する
+
+API は次のように機能します。
+
+
+
+=== `GET`
+
+* `GET <trident-address>/trident/v1/<object-type>`:そのタイプのすべてのオブジェクトを一覧表示します。
+* `GET <trident-address>/trident/v1/<object-type>/<object-name>`:名前付きオブジェクトの詳細を取得します。
+
+
+
+
+=== `POST`
+
+`POST <trident-address>/trident/v1/<object-type>`:指定した型のオブジェクトを作成します。
+
+* オブジェクトを作成するには JSON 構成が必要です。各オブジェクトタイプの仕様については、tridentctl.htmlを参照してください[`tridentctl` コマンドとオプション]。
+* オブジェクトがすでに存在する場合、動作は一定ではありません。バックエンドが既存のオブジェクトを更新しますが、それ以外のすべてのオブジェクトタイプで処理が失敗します。
+
+
+
+
+=== `DELETE`
+
+`DELETE <trident-address>/trident/v1/<object-type>/<object-name>`:指定したリソースを削除します。
+
+
+NOTE: バックエンドまたはストレージクラスに関連付けられているボリュームは削除されず、削除されません。詳細については、tridentctl.htmlを参照してください[`tridentctl` コマンドとオプション]。
+
+これらのAPIの呼び出し方法の例については、デバッグを渡してください (`-d`）フラグ。詳細については、tridentctl.htmlを参照してください[`tridentctl` コマンドとオプション]。
