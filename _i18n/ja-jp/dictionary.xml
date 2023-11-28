@@ -4040,4 +4040,5 @@ Astra Trident</block>
   <block id="ab09b43d2faaea1b49257d5a973eae0e" category="sidebar">Astra Tridentの管理と監視</block>
   <block id="71f5771dab663d80ba4dad1627e3386a" category="sidebar">アップグレードの概要</block>
   <block id="5ff3faebb0ff710340bdbee89a4667ad" category="sidebar">オペレータにアップグレードしてください</block>
+  <block id="0cd8d0588cd2b20face3a0379d38f777" category="admonition">ダイナミックエクスポートポリシーを使用する場合は、Network Address Translation（NAT;ネットワークアドレス変換）を使用しないでください。NATを使用すると、ストレージコントローラは実際のIPホストアドレスではなくフロントエンドのNATアドレスを認識するため、エクスポートルールに一致しない場合はアクセスが拒否されます。</block>
 </blocks>
