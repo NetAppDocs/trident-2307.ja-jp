@@ -4004,4 +4004,6 @@ Astra Trident</block>
   <block id="62bc04158f931e9b0a26f5676c8ab043" category="paragraph"><block ref="62bc04158f931e9b0a26f5676c8ab043" category="inline-link-macro-rx"></block></block>
   <block id="15bd21e4cb669eaf47cfec94c1119ed7" category="paragraph">NetAppは、製品とサービスを継続的に改善・強化しています。Astra Tridentの最新機能の一部をご紹介します。以前のリリースについては、以前のバージョンのドキュメントを参照してください。</block>
   <block id="67826c4969c30c033af1c61762389384" category="sidebar">Astra Tridentは、NetAppによって維持されているオープンソースのストレージプロビジョナーおよびオーケストレーターです。DockerおよびKubernetesで管理されるコンテナ化されたアプリケーション用のストレージボリュームを作成できます。**Astra Trident 23.07へのアップグレードに関する重要な情報については、リリースノートをお読みください。**</block>
+  <block id="23dc68eb3282da7f8baebc1f7c84fff9" category="inline-link">サポートライフサイクルページ</block>
+  <block id="df26dce8cff00211af89034cce0d1904" category="admonition">最新のTridentバージョンサポートスケジュールについては、<block ref="605c91b6d04b068d1f5e6199e80f3518" category="inline-link-rx"></block>を参照してください。</block>
 </blocks>
